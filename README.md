@@ -12,6 +12,8 @@ TypeScript: Adiciona tipagem estática ao JavaScript para um código mais seguro
 
 CSS Modules: Garante o escopo dos estilos CSS, evitando conflitos.
 
+Deploy feito na VERCEL - https://ws-frontend-fabrica25-2-ochre.vercel.app/ (link de acesso)
+
 # ✨ Funcionalidades
 
 Visualização de uma lista de Pokémon.
@@ -22,9 +24,9 @@ Exibição de detalhes básicos de cada Pokémon.
 
 Siga os passos abaixo para executar o projeto em sua máquina local.
 
-# git clone https://github.com/GutoFigueiroa/wsFrontend-Fabrica25.2
+git clone https://github.com/GutoFigueiroa/wsFrontend-Fabrica25.2
 
-# npm install
+npm install
 
-# npm run dev
+npm run dev
 
