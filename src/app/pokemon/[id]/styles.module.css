@@ -1,0 +1,159 @@
+.container {
+
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 2rem;
+  width: 100%;
+}
+
+.card {
+
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.backLink {
+
+  align-self: flex-start;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: bold;
+
+}
+
+.notFoundContainer {
+
+  padding: 2rem;
+  text-align: center;
+
+}
+
+.notFoundHeading {
+
+  font-size: 2rem;
+  font-weight: bold;
+
+}
+
+.notFoundText {
+
+  margin-top: 1rem;
+  color: #6b7280;
+
+}
+
+.backButton {
+
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+}
+
+.pokemonName {
+
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-top: 1rem;
+
+}
+
+.pokemonId {
+
+  color: #3164ca;
+
+}
+
+.typesContainer {
+
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.typeTag {
+
+  background-color: #f3f4f6;
+  color: #3164ca;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-transform: capitalize;
+
+}
+
+.infoContainer {
+
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 2rem;
+  font-size: 1.125rem;
+
+}
+
+.statsContainer {
+
+  margin-top: 2rem;
+  width: 100%;
+
+}
+
+.statsHeading {
+
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5rem;
+
+}
+
+.statsList {
+
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+
+}
+
+.statItem {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+
+}
+
+.statName {
+
+  text-transform: capitalize;
+
+}
+
+.statValue {
+
+  background-color: #3164ca;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  min-width: 3rem;
+  text-align: center;
+  
+}

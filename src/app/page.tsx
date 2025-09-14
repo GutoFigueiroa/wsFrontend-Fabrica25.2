@@ -1,95 +1,121 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+import {
+  fetchPokemonList,
+  fetchPokemonByIdOrName,
+} from '../services/pokeapi';
+import Navbar from '@/components/Navbar';
+import SearchBar from '@/components/Search';
+import Footer from '@/components/Footer';
+import PokemonTable from '@/components/Poketable';
+
+interface Pokemon {
+  id: number;
+  name: string;
+  sprites: {
+    front_default: string;
+  };
+  types: {
+    slot: number;
+    type: {
+      name: string;
+    };
+  }[];
+}
+
+function Home() {
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+
+  const [loading, setLoading] = useState(true);
+
+  const [isSearching, setIsSearching] = useState(false);
+
+
+  useEffect(() => {
+    const getInitialPokemons = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchPokemonList(151);
+        setPokemons(data);
+
+      } catch (error) {
+        console.error('Erro ao buscar a lista inicial:', error);
+
+      } finally {
+        setLoading(false);
+      }
+    };
+    getInitialPokemons();
+  }, []);
+
+  const handleSearch = async (query: string) => {
+    setLoading(true);
+    try {
+      const data = await fetchPokemonByIdOrName(query.toLowerCase());
+      if (data) {
+
+        setPokemons([data]);
+        setIsSearching(true);
+
+      } else {
+        setPokemons([]);
+        setIsSearching(true);
+
+      }
+    } catch (error) {
+      console.error('Erro ao buscar Pokémon:', error);
+      setPokemons([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBack = async () => {
+    setIsSearching(false);
+    setLoading(true);
+    try {
+      const data = await fetchPokemonList(151);
+      setPokemons(data);
+    } catch (error) {
+      console.error('Erro ao buscar a lista inicial:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#394a69ff' }}>
+      <Navbar />
+      <main className="container" style={{ flexGrow: 1 }}>
+        <SearchBar onSearch={handleSearch} />
+        {isSearching && (
+          <div style={{ textAlign: 'center', marginTop: '1rem', marginBottom: '1.5rem' }}>
+            <button
+              onClick={handleBack}
+              style={{
+                padding: '1rem 1.5rem',
+                backgroundColor: '#ef4444',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '1rem',
+              }}
+            >
+              &larr; Voltar
+            </button>
+          </div>
+        )}
+        {loading ? (
+          <p style={{ textAlign: 'center', fontSize: '1.25rem', marginTop: '2.5rem' }}>Carregando Pokémons...</p>
+        ) : (
+          <PokemonTable pokemons={pokemons} />
+        )}
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <Footer />
     </div>
   );
 }
+
+export default Home;
